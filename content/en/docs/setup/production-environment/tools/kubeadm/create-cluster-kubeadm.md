@@ -11,7 +11,7 @@ weight: 30
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 Using `kubeadm`, you can create a minimum viable Kubernetes cluster that conforms to best practices.
 In fact, you can use `kubeadm` to set up a cluster that will pass the
-[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).
+[Kubernetes Conformance tests](/blog/2017/10/software-conformance-certification/).
 `kubeadm` also supports other cluster lifecycle functions, such as
 [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and cluster upgrades.
 
@@ -76,8 +76,9 @@ Install a {{< glossary_tooltip term_id="container-runtime" text="container runti
 For detailed instructions and other prerequisites, see [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 {{< note >}}
-If you have already installed kubeadm, run `apt-get update &&
-apt-get upgrade` or `yum update` to get the latest version of kubeadm.
+If you have already installed kubeadm, run
+`apt-get update && apt-get upgrade` or
+`yum update` to get the latest version of kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal.
@@ -87,7 +88,7 @@ After you initialize your control-plane, the kubelet runs normally.
 ### Preparing the required container images
 
 This step is optional and only applies in case you wish `kubeadm init` and `kubeadm join`
-to not download the default container images which are hosted at `k8s.gcr.io`.
+to not download the default container images which are hosted at `registry.k8s.io`.
 
 Kubeadm has commands that can help you pre-pull the required images
 when creating a cluster without an internet connection on its nodes.
@@ -304,7 +305,7 @@ reasons. If you want to be able to schedule Pods on the control plane nodes,
 for example for a single machine Kubernetes cluster, run:
 
 ```bash
-kubectl taint nodes --all node-role.kubernetes.io/control-plane- node-role.kubernetes.io/master-
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 ```
 
 The output will look something like:
@@ -314,14 +315,9 @@ node "test-01" untainted
 ...
 ```
 
-This will remove the `node-role.kubernetes.io/control-plane` and
-`node-role.kubernetes.io/master` taints from any nodes that have them,
-including the control plane nodes, meaning that the scheduler will then be able
-to schedule Pods everywhere.
-
-{{< note >}}
-The `node-role.kubernetes.io/master` taint is deprecated and kubeadm will stop using it in version 1.25.
-{{< /note >}}
+This will remove the `node-role.kubernetes.io/control-plane:NoSchedule` taint
+from any nodes that have it, including the control plane nodes, meaning that the
+scheduler will then be able to schedule Pods everywhere.
 
 ### Joining your nodes {#join-nodes}
 
@@ -582,7 +578,7 @@ Example for `kubeadm upgrade`:
 or {{< skew currentVersion >}}
 
 To learn more about the version skew between the different Kubernetes component see
-the [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
+the [Version Skew Policy](/releases/version-skew-policy/).
 
 ## Limitations {#limitations}
 
