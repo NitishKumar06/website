@@ -57,7 +57,7 @@ cards:
   button: Contribute to the docs
   button_path: /docs/contribute
 - name: release-notes
-  title: K8s Release Notes
+  title: Downloads
   description: If you are installing Kubernetes or upgrading to the newest version, refer to the current release notes.
   button: "Download Kubernetes"
   button_path: "/releases/download"
