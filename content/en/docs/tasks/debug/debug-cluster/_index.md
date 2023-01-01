@@ -34,6 +34,12 @@ To get detailed information about the overall health of your cluster, you can ru
 kubectl cluster-info dump
 ```
 
+Also due to CNI changes, the `kubelet` binary might fail to recongnise the flag `network-plugin` which results in the following error:
+
+`Error: failed to parse kubelet flag: unknown flag: --network-plugin`
+
+This can happen due to several reasons like use of older version of `kubelet` binary that does not support the `netowrk-plugin` flag. For a better explanation, it is recommended to read [this](https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/).
+
 ### Example: debugging a down/unreachable node
 
 Sometimes when debugging it can be useful to look at the status of a node -- for example, because
